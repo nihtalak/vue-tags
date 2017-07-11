@@ -16,9 +16,10 @@
         <input
           type="text"
           class="main-input"
+          ref="input"
           v-show="showInput"
           v-model.set="newTag"
-          :maxLength="maxTagLen"
+          :maxLength="maxTagLen || null"
           @keydown.delete="removeLast"
           @keyup.188="add"
           @blur="addPrevent"

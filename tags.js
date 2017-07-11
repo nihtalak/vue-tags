@@ -7,11 +7,11 @@ Vue.component("tags", {
   props: {
     maxTags: {
       type: Number,
-      default: -1
+      default: 0
     },
     maxTagLen: {
       type: Number,
-      default: -1
+      default: 0
     },
     values: {
       type: Array,
@@ -25,7 +25,7 @@ Vue.component("tags", {
       return this.values.join(",");
     },
     showInput: function() {
-      return this.maxTags === -1 || this.maxTags > this.values.length;
+      return !this.maxTags || this.maxTags > this.values.length;
     }
   },
   data: function() {
@@ -34,9 +34,12 @@ Vue.component("tags", {
   methods: {
     remove: function(key) {
       this.values.splice(this.values.indexOf(key), 1);
+      Vue.nextTick(function() {
+        this.$refs.input.focus();
+      }.bind(this));
     },
     add: function() {
-      if (this.maxTags.length <= this.values.length) {
+      if (!this.maxTags && this.maxTags.length <= this.values.length) {
         return;
       }
       var tag = filterTag(this.newTag);
