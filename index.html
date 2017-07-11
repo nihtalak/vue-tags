@@ -13,12 +13,26 @@
         {{tag}}
         <span class="close" @click="remove(tag)" />
       </span>
-      <input v-model.set="newTag" @keydown.8="removeLast" @keyup.188="add" type="text" class="main-input" />
+        <input
+          type="text"
+          class="main-input"
+          v-show="showInput"
+          v-model.set="newTag"
+          :maxLength="maxTagLen"
+          @keydown.delete="removeLast"
+          @keyup.188="add"
+          @blur="addPrevent"
+          @keydown.enter="add"
+          @keydown.tab="addPrevent"
+        />
+        <input name="tags" type="hidden" :value="value" />
     </div>
   </script>
   <div id="demo">
-    <p>Enter some tags:</p>
-    <p><tags /></p>
+    <form>
+      <p>Enter some tags:</p>
+      <p><tags :max-tags="5" :max-tag-len="20" /></p>
+    </form>
   </div>
   <script src="tags.js"></script>
 </body>
