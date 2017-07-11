@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="tags.css" />
+  <title>Input Tags</title>
+  <script src="https://unpkg.com/vue@2.3.4/dist/vue.js"></script>
+</head>
+<body>
+  <script type="text/x-template" id="tags-template">
+    <div class="tags-input">
+      <span v-for="tag in values" class="tag">
+        {{tag}}
+        <span class="close" @click="remove(tag)" />
+      </span>
+      <input v-model.set="newTag" @keydown.8="removeLast" @keyup.188="add" type="text" class="main-input" />
+    </div>
+  </script>
+  <div id="demo">
+    <p>Enter some tags:</p>
+    <p><tags /></p>
+  </div>
+  <script src="tags.js"></script>
+</body>
+</html>
